@@ -1569,9 +1569,9 @@ public class Main3 {
 			} else {
 
 				str = replaceTab(str);
-				str = str.replaceAll("[\\\\?？]", "");
+				//str = str.replaceAll("[\\\\?？]", "");
 				// str = str.replace("😊", "").replace("𡿨", "");
-				str = new String(str.getBytes("gbk"), "gb2312");
+				str = new String(str.getBytes("gbk"), "gb2312").toString().replace("\\", ",").replace("?", "").replace("？", "");
 				str = str.trim().equals("") ? "\\N" : str;
 			}
 		} catch (Exception e) {
@@ -1777,7 +1777,7 @@ public class Main3 {
 			long a = System.currentTimeMillis();
 
 			connect = getConnect();
-			readfile("L:\\简历分类\\未分类");
+			readfile("C:/Users/gongcaichun/Desktop/database/wfl/1");
 
 			System.out.println("耗时： " + (System.currentTimeMillis() - a) / 1000f + " s");
 			System.out.println("文件总数： " + sum);
