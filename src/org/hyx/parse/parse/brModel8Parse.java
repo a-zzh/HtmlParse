@@ -206,6 +206,9 @@ public class brModel8Parse {
 	 * 
 	 */
 	public static void basicInfo(String docStr) {
+
+		// System.out.print(docStr);
+		// System.exit(0);
 		String str;
 		String[] str2 = docStr.split(";");
 		for (int i = 0; i < str2.length; i++) {
@@ -310,10 +313,11 @@ public class brModel8Parse {
 					str = docStr.substring(i + 5, j);
 				else
 					str = docStr.substring(i + 5, docStr.length());
+				language = str.replace("&nbsp", " ");
+				basicModel2.setLanguage(language);
+
 			}
 
-			language = str.replace("&nbsp", " ");
-			basicModel2.setLanguage(language);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -334,71 +338,79 @@ public class brModel8Parse {
 	 * jobInfo
 	 **/
 	public static void jobExperience(String docStr) {
-		String str2 = docStr.substring(docStr.indexOf("工作经历："), docStr.length()), tem = "";
-		String[] s;
-		int j = 0, k = 0, n = 0;
+		try {
+			String str2 = docStr.substring(docStr.indexOf("工作经历："), docStr.length()), tem = "";
+			String[] s;
+			int j = 0, k = 0, n = 0;
 
-		while (str2.indexOf("离职理由:") != -1) {
-			Job job = new Job();
+			while (str2.indexOf("离职理由:") != -1) {
+				Job job = new Job();
 
-			j = str2.indexOf("工作经历：");
-			k = str2.indexOf("工作内容:");
-			if (j != -1)
-				tem = str2.substring(j + 5, k);
-			else {
-				if (k != -1)
-					tem = str2.substring(0, k);
-			}
-
-			s = tem.split("\\|");
-			info = "";
-			for (int i = 0; i < s.length; i++) {
-				try {
-					if (0 == i) {
-						startTime = s[0];
-						job.setStartTime(startTime);
-					} else if (1 == i) {
-						endTime = s[1];
-						job.setEndTime(endTime);
-
-					} else if (2 == i) {
-						//
-					} else if (3 == i) {
-						company = s[3];
-						job.setCompany(company);
-					} else if (4 == i) {// 民营
-						info += s[4] + " ";
-					} else if (5 == i) {// 人数规模
-						info += s[5] + " ";
-						job.setInfo(info);
-					} else if (6 == i) {
-						jobIndustry = s[6];
-						job.setJobIndustry(jobIndustry);
-					} else if (7 == i) {
-						salary = s[7];
-						job.setSalary(salary);
-					} else if (8 == i) {
-						duration = s[8].substring(0, s[8].length() - 2);
-						job.setDuration(duration);
-					}
-
-					// System.out.println(s[i]);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				j = str2.indexOf("工作经历：");
+				k = str2.indexOf("工作内容:");
+				if (j != -1)
+					tem = str2.substring(j + 5, k);
+				else {
+					if (k != -1)
+						tem = str2.substring(0, k);
 				}
+
+				s = tem.split("\\|");
+				info = "";
+				for (int i = 0; i < s.length; i++) {
+					try {
+						if (!s[i].trim().equals(""))
+							if (0 == i) {
+								startTime = s[0];
+								job.setStartTime(startTime);
+							} else if (1 == i) {
+								endTime = s[1];
+								job.setEndTime(endTime);
+
+							} else if (2 == i) {
+								//
+							} else if (3 == i) {
+								company = s[3];
+								job.setCompany(company);
+							} else if (4 == i) {// 民营
+								info += s[4] + " ";
+							} else if (5 == i) {// 人数规模
+								info += s[5] + " ";
+								job.setInfo(info);
+							} else if (6 == i) {
+								jobIndustry = s[6];
+								job.setJobIndustry(jobIndustry);
+							} else if (7 == i) {
+								salary = s[7];
+								job.setSalary(salary);
+							} else if (8 == i) {// 工作时间
+
+								duration = s[8].substring(0, s[8].length() - 2);
+								job.setDuration(duration);
+
+							}
+
+						// System.out.println(s[i]);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				jobInfo = str2.substring(k + 5, str2.indexOf("离职理由"));
+				job.setJobInfo(jobInfo);
+
+				jobMap.put((n++) + "", job);
+				str2 = str2.substring(str2.indexOf("离职理由") + 5, str2.length());
+
+				// System.out.println(jobInfo);
+				// System.out.println("--------------------------");
+				// System.exit(0);
+
 			}
-
-			jobInfo = str2.substring(k + 5, str2.indexOf("离职理由"));
-			job.setJobInfo(jobInfo);
-
-			jobMap.put((n++) + "", job);
-			str2 = str2.substring(str2.indexOf("离职理由") + 5, str2.length());
-
-			// System.out.println(jobInfo);
-			// System.out.println("--------------------------");
-			// System.exit(0);
-
+		} catch (Exception e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -416,56 +428,61 @@ public class brModel8Parse {
 	 */
 
 	public static void educationContent(String docStr) {
-		String tem;
-		String[] str, str1;
-		int n = 0;
-		if (docStr.indexOf("教育经历:") != -1) {
-			if (docStr.indexOf("语言水平") != -1) {
-				tem = docStr.substring(docStr.indexOf("教育经历:") + 5, docStr.indexOf("语言水平") - 1);
-				str = tem.split(";");
+		try {
+			String tem;
+			String[] str, str1;
+			int n = 0;
+			if (docStr.indexOf("教育经历:") != -1) {
+				if (docStr.indexOf("语言水平") != -1) {
+					tem = docStr.substring(docStr.indexOf("教育经历:") + 5, docStr.indexOf("语言水平") - 1);
+					str = tem.split(";");
 
-				for (int i = 0; i < str.length; i++) {
-					try {
-						if (!str[i].trim().equals("")) {
-							educationModel = new Education();
-							String str2 = str[i];
-							str2 = str2.replaceAll("&nbsp", ";");
-							str1 = str2.split(";");
-							// System.out.println(str[i]);
-							for (int j = 0; j < str1.length; j++) {
+					for (int i = 0; i < str.length; i++) {
+						try {
+							if (!str[i].trim().equals("")) {
+								educationModel = new Education();
+								String str2 = str[i];
+								str2 = str2.replaceAll("&nbsp", ";");
+								str1 = str2.split(";");
+								// System.out.println(str[i]);
+								for (int j = 0; j < str1.length; j++) {
 
-								// System.out.println(str1[j]);
-								if (0 == j) {
-									startTime = str1[j].split("-")[0];
-									educationModel.setStartTime(startTime);
-									endTime = str1[j].split("-")[1];
-									educationModel.setEndTime(endTime);
-								} else if (1 == j) {
+									// System.out.println(str1[j]);
+									if (0 == j) {
+										startTime = str1[j].split("-")[0];
+										educationModel.setStartTime(startTime);
+										endTime = str1[j].split("-")[1];
+										educationModel.setEndTime(endTime);
+									} else if (1 == j) {
 
-									school = str1[j];
-									educationModel.setSchool(school);
-								} else if (2 == j) {
-									major = str1[j];
-									educationModel.setMajor(major);
-								} else if (3 == j) {
-									degree = str1[j];
-									educationModel.setDegree(degree);
+										school = str1[j];
+										educationModel.setSchool(school);
+									} else if (2 == j) {
+										major = str1[j];
+										educationModel.setMajor(major);
+									} else if (3 == j) {
+										degree = str1[j];
+										educationModel.setDegree(degree);
+									}
+
 								}
 
+								educationMap.put((n++) + "", educationModel);
+
 							}
-
-							educationMap.put((n++) + "", educationModel);
-
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+
 					}
-
+					// System.exit(0);
 				}
-				// System.exit(0);
-			}
 
+			}
+		} catch (Exception e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -476,71 +493,74 @@ public class brModel8Parse {
 	 */
 
 	public static void projectExperience(String docStr) {
-		String str2 = docStr.substring(docStr.indexOf("项目经验:"), docStr.length()), tem = "";
-		String[] s;
-		int j = 0, k = 0, n = 0;
+		try {
+			String str2 = docStr.substring(docStr.indexOf("项目经验:"), docStr.length()), tem = "";
+			String[] s;
+			int j = 0, k = 0, n = 0;
 
-		while (str2.indexOf("责任描述:") != -1) {
-			try {
-				projectModel = new Project();
+			while (str2.indexOf("责任描述:") != -1) {
+ 
+					projectModel = new Project();
 
-				j = str2.indexOf("项目经验:");
-				k = str2.indexOf("项目介绍:");
-				if (j != -1)
-					tem = str2.substring(j + 5, k);
-				else {
-					if (k != -1)
-						// tem = str2.substring(0, k);
-						tem = str2.substring(str2.indexOf("|") - 7, k);
-				}
-
-				s = tem.split("\\|");
-				projectInfo = "";
-				for (int i = 0; i < s.length; i++) {
-					if (0 == i) {
-						startTime = s[0];
-						projectModel.setStartTime(startTime);
-					} else if (1 == i) {
-						endTime = s[1];
-						projectModel.setEndTime(endTime);
-					} else if (2 == i) {
-						projectName = s[2];
-						projectModel.setProjectName(projectName);
-					} else if (3 == i) {
-						projectInfo += s[3] + "	";
-					} else if (4 == i) {// 民营
-						projectInfo += s[4] + "	";
-						projectModel.setProjectInfo(projectInfo);
+					j = str2.indexOf("项目经验:");
+					k = str2.indexOf("项目介绍:");
+					if (j != -1)
+						tem = str2.substring(j + 5, k);
+					else {
+						if (k != -1)
+							// tem = str2.substring(0, k);
+							tem = str2.substring(str2.indexOf("|") - 7, k);
 					}
 
-					// System.out.println(s[i]);
+					s = tem.split("\\|");
+					projectInfo = "";
+					for (int i = 0; i < s.length; i++) {
+						
+						if (0 == i) {
+							startTime = s[0];
+							projectModel.setStartTime(startTime);
+						} else if (1 == i) {
+							endTime = s[1];
+							projectModel.setEndTime(endTime);
+						} else if (2 == i) {
+							projectName = s[2];
+							projectModel.setProjectName(projectName);
+						} else if (3 == i) {
+							projectInfo += s[3] + "	";
+						} else if (4 == i) {// 民营
+							projectInfo += s[4] + "	";
+							projectModel.setProjectInfo(projectInfo);
+						}
+
+						// System.out.println(s[i]);
+						// System.exit(0);
+					}
+
+					content = str2.substring(k + 5, str2.indexOf("责任描述:")); // 项目描述
+					projectModel.setContent(content);
+					// System.out.println(content);
+					str2 = str2.substring(str2.indexOf("责任描述:"), str2.length());
+					if (str2.indexOf("项目介绍:") != -1) {
+						duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("|") - 7);
+
+					} else {
+						duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("教育经历:"));
+					}
+					projectModel.setDuty(duty);
+
+					projectmap.put((n++) + "", projectModel);
+
+					str2 = str2.substring(str2.indexOf("责任描述:") + 5, str2.length());
+
+					// System.out.println(duty);
+					// System.out.println("--------------------------");
 					// System.exit(0);
-				}
+				 
 
-				content = str2.substring(k + 5, str2.indexOf("责任描述:")); // 项目描述
-				projectModel.setContent(content);
-				// System.out.println(content);
-				str2 = str2.substring(str2.indexOf("责任描述:"), str2.length());
-				if (str2.indexOf("项目介绍:") != -1) {
-					duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("|") - 7);
-
-				} else {
-					duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("教育经历:"));
-				}
-				projectModel.setDuty(duty);
-
-				projectmap.put((n++) + "", projectModel);
-
-				str2 = str2.substring(str2.indexOf("责任描述:") + 5, str2.length());
-
-				// System.out.println(duty);
-				// System.out.println("--------------------------");
-				// System.exit(0);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-
+		} catch (Exception e) { 
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -551,12 +571,13 @@ public class brModel8Parse {
 	 * @param ele
 	 */
 	public static void proSkill(String docStr) {
-		String str2 = docStr.substring(docStr.indexOf("技能:"), docStr.length()), tem = "";
-		String[] s;
-		int h = 0, j = 0, k = 0, n = 0;
-		str2 = str2.replaceAll("&nbsp", " ");
-		while (str2.indexOf("个月") != -1) {
-			try {
+		try {
+			String str2 = docStr.substring(docStr.indexOf("技能:"), docStr.length()), tem = "";
+			String[] s;
+			int h = 0, j = 0, k = 0, n = 0;
+			str2 = str2.replaceAll("&nbsp", " ");
+			while (str2.indexOf("个月") != -1) {
+
 				skillModel = new Skill();
 				j = str2.indexOf("技能:");
 				h = str2.indexOf("-");
@@ -589,11 +610,11 @@ public class brModel8Parse {
 				skillMap.put((n++) + "", skillModel);
 
 				// System.out.println("--------------------------");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -602,7 +623,7 @@ public class brModel8Parse {
 		// String path =H:/猎头需要软件/Html/前程无忧/0/51job_archibald(8248536).html
 		// C:/Users/gongcaichun/Desktop/HTML/未分类/Aries Liu 1.html 中英文简历
 		// C:/Users/gongcaichun/Desktop/模板/WModel4Parse/a 1.html
-		String path = "C:/Users/gongcaichun/Desktop/html额外/未分类/br分隔/jm202001800r90250003000-马扬扬.html";
+		String path = "C:/Users/gongcaichun/Desktop/html额外/未分类/br分隔/jm184363849r90250004000-李云.html";
 		parse(path);
 		// System.out.println("-----------------------------------------------------------------------------");
 

@@ -204,18 +204,18 @@ public class Main3 {
 	// public static String UnReadFiles =
 	// "C:/Users/gongcaichun/Desktop/database/UnReadFiles.txt";
 
-	public static String cv_job = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_job.txt";
-	public static String cv_skill = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_skill.txt";
-	public static String cv_project = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_project.txt";
-	public static String cv_medal = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_medal.txt";
+	public static String cv_job = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_job.txt";
+	public static String cv_skill = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_skill.txt";
+	public static String cv_project = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_project.txt";
+	public static String cv_medal = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_medal.txt";
 
-	public static String cv_expectation = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_expectation.txt";
-	public static String cv_education = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_education.txt";
-	public static String cv_comment = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_comment.txt";
-	public static String cv_basic = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\cv_basic.txt";
+	public static String cv_expectation = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_expectation.txt";
+	public static String cv_education = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_education.txt";
+	public static String cv_comment = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_comment.txt";
+	public static String cv_basic = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\cv_basic.txt";
 	// public static String UnReadFiles = "K:\\mht2html\\UnReadFiles.txt";
 
-	public static String UnReadFiles = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\UnReadFiles_test.txt";
+	public static String UnReadFiles = "C:\\Users\\gongcaichun\\Desktop\\database\\wfl\\1\\UnReadFiles_test.txt";
 
 	// public static String cv_job = "/data/mht/cv_job.txt";
 	// public static String cv_skill = "/data/mht/cv_skill.txt";
@@ -1777,7 +1777,7 @@ public class Main3 {
 			long a = System.currentTimeMillis();
 
 			connect = getConnect();
-			readfile("C:/Users/gongcaichun/Desktop/database/wfl/1");
+			readfile("L:/简历分类/未分类/来自I盘/未分类_1");
 
 			System.out.println("耗时： " + (System.currentTimeMillis() - a) / 1000f + " s");
 			System.out.println("文件总数： " + sum);
