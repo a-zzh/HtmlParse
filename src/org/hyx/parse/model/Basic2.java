@@ -2,6 +2,9 @@ package org.hyx.parse.model;
 
 public class Basic2 {
 
+	
+	private String idcard;//身份证号_zzh
+	private String keywords;// 简历关键字_zzh 
 	private String name;// 姓名
 	private String gender;// 性别
 	private String company;// 公司
@@ -10,7 +13,7 @@ public class Basic2 {
 	private String workingyear;// 工作年限
 	private String education;// 学历
 	private String latteraddress;// 暂住地
-	private String maritalstatus;// 婚姻状况
+	private String maritalstatus;// 婚姻状况 
 	private String account;// 户口
 	private String phone;// 固定电话
 	private String mobile;// 手机
@@ -18,12 +21,15 @@ public class Basic2 {
 	private String age;// 年龄
 	private String birth;// 出生日期
 	private String degree;// 学位
+	private String major;// 专业
+	
 	private String school;// 学校
 	private String politics;// 政治面貌
 	private String selfassessment;// 自我评价
+	private String dutytime;//到岗时间_zzh
 	private String expectnaturework;// 期望工作性质
 	private String expectindustry;// 期望从事行业
-	private String currentSalary;// 目前薪资
+	private String currentSalary;// 目前薪资 
 	private String expectedCity;// 期望城市
 	private String expectedJob;// 期望职位
 	private String jobStatus;// 工作状态
@@ -33,7 +39,40 @@ public class Basic2 {
 	private String zipCode;// 邮编
 	private String bonus;// 奖金
 	private String height;// 身高
+	
+	
+	public String getIdcard() {
+		return idcard;
+	}
+
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
+	}
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+	public  String getDutytime() {
+		return dutytime;
+	}
+
+	public  void setDutytime(String dutytime) {
+		this.dutytime = dutytime;
+	}
 	public String getHeight() {
+	
 		return height;
 	}
 
@@ -290,7 +329,8 @@ public class Basic2 {
 	public void setExpectedSalary(String expectedSalary) {
 		this.expectedSalary = expectedSalary;
 	}
-
+	
+	 
 	public String toString() {
 		return "Basic [" + "name=" + name + ", gender=" + gender + ", company="
 				+ company + ", title=" + title + ", city=" + city
@@ -304,7 +344,7 @@ public class Basic2 {
 				+ currentSalary + ", expectedCity=" + expectedCity
 				+ ", expectedJob=" + expectedJob + ",jobStatus" + jobStatus
 				+ ", expectedSalary=" + expectedSalary + ", politics="
-				+ politics + ", selfassessment=" + selfassessment + " language="
+				+ politics + ", selfassessment=" + selfassessment +", dutytime="+dutytime+ " language="
 				+ language + " photoPath=" + photoPath + " zipCode=" + zipCode
 				+ " bonus=" + bonus + " height=" + height  + " weight=" + weight  + "]";
 

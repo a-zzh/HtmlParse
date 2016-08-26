@@ -2,6 +2,12 @@ package org.hyx.parse.model;
 import java.util.Date;
 
 
+/**
+ * getTime
+ * medalName
+ * medalLevel
+ * */
+
 public class Medal {
 	private int id  ;
 	private int candidateid  ;
@@ -10,11 +16,18 @@ public class Medal {
 	private float score ;
 	private String getTime;//时间
 	private String medalName;//奖项名称
+	private String medalLevel;//奖项级别（几等奖）
 	private String info;//
 	private String medalInfo;//奖项信息
 	private Date  createTime;
 	private Date  updateTime;
 	
+	public String getMedalLevel() {
+		return medalLevel;
+	}
+	public void setMedalLevel(String medalLevel) {
+		this.medalLevel = medalLevel;
+	}
 	public Date getCreateTime() {
 		return createTime;
 	}

@@ -1,14 +1,14 @@
 package org.hyx.parse.model;
 
 import java.util.Date;
-
+//skillName  skillInfo  time
 public class Skill {
 	private int id;
 	private int candidateid;
 	private int processStage;
 	private int flag;
 	private float score;
-	private String skillName;// 技能名称
+	private String skillName="";// 技能名称
 	private String info;//
 	private String skillInfo;// 技能熟练程度
 	private String time;// 使用时间

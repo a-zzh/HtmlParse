@@ -2,6 +2,16 @@ package org.hyx.parse.model;
 
 import java.util.Date;
 
+/**
+ * educationMap
+ * 
+ * educationModel
+ * 
+ * startTime  endTime  school  major  degree
+ * educationInfo
+ * 
+ * */
+
 public class Education {
 
 	private int candidateid;

@@ -1,29 +1,48 @@
 package org.hyx.parse.model;
 import java.util.Date;
 
-
+/*
+ * 51
+ * startTime  endTime   company  duration  
+ *  jobIndustry  
+ *  department
+ *  
+ *  jobInfo
+ * */
 public class Job {
-	private int id;
-	private int candidateid;
-	private int processStage;
-	private int flag;
-	private float score;
-	private String startTime;//起始时间
-	private String endTime;//结束时间
-	private String company;//所在公司
-	private String department;//所在部门
-	private String position;//职位
-	private String report;//汇报人
-	private String salary;//薪资
-	private String member;//管辖成员
-	private String duty;//职责
-	private String achieve;//成果
-	private String reason;//离职原因
-	private String city;//所在城市
-	private String info;
-	private String jobInfo;//工作描述信息（其它关于工作描述的信息）
-	private String jobIndustry;//所属行业
-	private String jobReferences;//证明人
+	private int id=0;
+	private int candidateid=0;
+	private int processStage=0;
+	private int flag=0;
+	private float score=0;
+	private String startTime=null;//起始时间
+	private String endTime=null;//结束时间
+	private String duration=null;  //任职时长_zzh 	 
+	private String company=null;//所在公司
+	private String department=null;//所在部门
+	private String position=null;//职位
+	private String report=null;//汇报人
+	private String salary=null;//薪资
+	private String member=null;//管辖成员,下属人数
+	private String duty=null;//职责
+	private String achieve=null;//成果
+	private String reason=null;//离职原因
+	private String city=null;//所在城市
+	private String info=null;//其他信息
+	private String jobInfo=null;//工作描述信息（其它关于工作描述的信息）
+	private String jobIndustry=null;//所属行业
+	private String jobReferences=null;//证明人
+	 
+	
+	
+	
+	
+	public String getDuration() {
+		return duration;
+	}
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
 	public String getJobReferences() {
 		return jobReferences;
 	}

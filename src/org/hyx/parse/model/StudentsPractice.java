@@ -1,7 +1,7 @@
 package org.hyx.parse.model;
 
 public class StudentsPractice {
-
+// practiceTime   practiceName
 	private String practiceTime;//时间
 	private String practiceName;//职位
 	private String practiceInfo;//信息

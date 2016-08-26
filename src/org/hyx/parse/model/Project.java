@@ -2,6 +2,13 @@ package org.hyx.parse.model;
 
 import java.util.Date;
 
+/**
+ * startTime   endTime company
+ * proHardEn
+ * proDevelopment
+ * content
+ * duty
+ * */
 public class Project {
 	private int id;
 	private int candidateid;
