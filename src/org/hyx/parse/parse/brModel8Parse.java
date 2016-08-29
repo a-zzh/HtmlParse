@@ -408,7 +408,7 @@ public class brModel8Parse {
 				// System.exit(0);
 
 			}
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -480,7 +480,7 @@ public class brModel8Parse {
 				}
 
 			}
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -499,66 +499,65 @@ public class brModel8Parse {
 			int j = 0, k = 0, n = 0;
 
 			while (str2.indexOf("责任描述:") != -1) {
- 
-					projectModel = new Project();
 
-					j = str2.indexOf("项目经验:");
-					k = str2.indexOf("项目介绍:");
-					if (j != -1)
-						tem = str2.substring(j + 5, k);
-					else {
-						if (k != -1)
-							// tem = str2.substring(0, k);
-							tem = str2.substring(str2.indexOf("|") - 7, k);
+				projectModel = new Project();
+
+				j = str2.indexOf("项目经验:");
+				k = str2.indexOf("项目介绍:");
+				if (j != -1)
+					tem = str2.substring(j + 5, k);
+				else {
+					if (k != -1)
+						// tem = str2.substring(0, k);
+						tem = str2.substring(str2.indexOf("|") - 7, k);
+				}
+
+				s = tem.split("\\|");
+				projectInfo = "";
+				for (int i = 0; i < s.length; i++) {
+
+					if (0 == i) {
+						startTime = s[0];
+						projectModel.setStartTime(startTime);
+					} else if (1 == i) {
+						endTime = s[1];
+						projectModel.setEndTime(endTime);
+					} else if (2 == i) {
+						projectName = s[2];
+						projectModel.setProjectName(projectName);
+					} else if (3 == i) {
+						projectInfo += s[3] + "	";
+					} else if (4 == i) {// 民营
+						projectInfo += s[4] + "	";
+						projectModel.setProjectInfo(projectInfo);
 					}
 
-					s = tem.split("\\|");
-					projectInfo = "";
-					for (int i = 0; i < s.length; i++) {
-						
-						if (0 == i) {
-							startTime = s[0];
-							projectModel.setStartTime(startTime);
-						} else if (1 == i) {
-							endTime = s[1];
-							projectModel.setEndTime(endTime);
-						} else if (2 == i) {
-							projectName = s[2];
-							projectModel.setProjectName(projectName);
-						} else if (3 == i) {
-							projectInfo += s[3] + "	";
-						} else if (4 == i) {// 民营
-							projectInfo += s[4] + "	";
-							projectModel.setProjectInfo(projectInfo);
-						}
-
-						// System.out.println(s[i]);
-						// System.exit(0);
-					}
-
-					content = str2.substring(k + 5, str2.indexOf("责任描述:")); // 项目描述
-					projectModel.setContent(content);
-					// System.out.println(content);
-					str2 = str2.substring(str2.indexOf("责任描述:"), str2.length());
-					if (str2.indexOf("项目介绍:") != -1) {
-						duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("|") - 7);
-
-					} else {
-						duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("教育经历:"));
-					}
-					projectModel.setDuty(duty);
-
-					projectmap.put((n++) + "", projectModel);
-
-					str2 = str2.substring(str2.indexOf("责任描述:") + 5, str2.length());
-
-					// System.out.println(duty);
-					// System.out.println("--------------------------");
+					// System.out.println(s[i]);
 					// System.exit(0);
-				 
+				}
+
+				content = str2.substring(k + 5, str2.indexOf("责任描述:")); // 项目描述
+				projectModel.setContent(content);
+				// System.out.println(content);
+				str2 = str2.substring(str2.indexOf("责任描述:"), str2.length());
+				if (str2.indexOf("项目介绍:") != -1) {
+					duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("|") - 7);
+
+				} else {
+					duty = str2.substring(str2.indexOf("责任描述:") + 5, str2.indexOf("教育经历:"));
+				}
+				projectModel.setDuty(duty);
+
+				projectmap.put((n++) + "", projectModel);
+
+				str2 = str2.substring(str2.indexOf("责任描述:") + 5, str2.length());
+
+				// System.out.println(duty);
+				// System.out.println("--------------------------");
+				// System.exit(0);
 
 			}
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -572,20 +571,33 @@ public class brModel8Parse {
 	 */
 	public static void proSkill(String docStr) {
 		try {
-			String str2 = docStr.substring(docStr.indexOf("技能:"), docStr.length()), tem = "";
-			String[] s;
-			int h = 0, j = 0, k = 0, n = 0;
-			str2 = str2.replaceAll("&nbsp", " ");
-			while (str2.indexOf("个月") != -1) {
+			if (docStr.indexOf("技能:") != -1) {
 
-				skillModel = new Skill();
-				j = str2.indexOf("技能:");
-				h = str2.indexOf("-");
-				k = str2.indexOf("个月");
-				if (j != -1) {
-					if (k != -1)
+				String str2 = docStr.substring(docStr.indexOf("技能:"), docStr.length()), tem = "";
+				String[] s;
+				int h = 0, j = 0, k = 0, n = 0;
+				str2 = str2.replaceAll("&nbsp", " ");
+				while (str2.indexOf("个月") != -1) {
+
+					skillModel = new Skill();
+					j = str2.indexOf("技能:");
+					h = str2.indexOf("-");
+					k = str2.indexOf("个月");
+					if (j != -1) {
+						if (k != -1)
+							if (h != -1) {
+								skillName = str2.substring(j + 3, h);
+								skillModel.setSkillName(skillName);
+								skillInfo = str2.substring(h + 1, k - 3);
+								skillModel.setSkillInfo(skillInfo);
+								skilltime = str2.substring(k - 3, k + 2);
+								skillModel.setTime(skilltime);
+							}
+
+					} else {
+
 						if (h != -1) {
-							skillName = str2.substring(j + 3, h);
+							skillName = str2.substring(0, h);
 							skillModel.setSkillName(skillName);
 							skillInfo = str2.substring(h + 1, k - 3);
 							skillModel.setSkillInfo(skillInfo);
@@ -593,26 +605,20 @@ public class brModel8Parse {
 							skillModel.setTime(skilltime);
 						}
 
-				} else {
-
-					if (h != -1) {
-						skillName = str2.substring(0, h);
-						skillModel.setSkillName(skillName);
-						skillInfo = str2.substring(h + 1, k - 3);
-						skillModel.setSkillInfo(skillInfo);
-						skilltime = str2.substring(k - 3, k + 2);
-						skillModel.setTime(skilltime);
 					}
 
+					str2 = str2.substring(k + 2, str2.length());
+					skillMap.put((n++) + "", skillModel);
+
+					// System.out.println("--------------------------");
+
 				}
-
-				str2 = str2.substring(k + 2, str2.length());
-				skillMap.put((n++) + "", skillModel);
-
-				// System.out.println("--------------------------");
-
 			}
-		} catch (Exception e) {
+		} catch (
+
+		Exception e)
+
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
