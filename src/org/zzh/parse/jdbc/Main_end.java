@@ -41,7 +41,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class Main3 {
+public class Main_end {
 
 	static int sum = 0, count = 0, help = 0, connCounter = 0, success = 0, lose = 0;
 
@@ -204,6 +204,7 @@ public class Main3 {
 	// public static String UnReadFiles =
 	// "C:/Users/gongcaichun/Desktop/database/UnReadFiles.txt";
 
+	public static String cv = "C:\\Users\\gongcaichun\\Desktop\\database\\cv.txt";
 	public static String cv_job = "C:\\Users\\gongcaichun\\Desktop\\database\\cv_job.txt";
 	public static String cv_skill = "C:\\Users\\gongcaichun\\Desktop\\database\\cv_skill.txt";
 	public static String cv_project = "C:\\Users\\gongcaichun\\Desktop\\database\\cv_project.txt";
@@ -239,6 +240,7 @@ public class Main3 {
 	public static File cv_basic_txt;
 	public static File UnReadFiles_txt;
 
+	public static FileWriter cv_txt_fw;// 可追加读写入
 	public static FileWriter cv_job_txt_fw;// 可追加读写入
 	public static FileWriter cv_skill_txt_fw;// 可追加读写入
 	public static FileWriter cv_project_txt_fw;// 可追加读写入
@@ -372,16 +374,19 @@ public class Main3 {
 		gender = "\\N";
 		cardtype = "\\N";
 		idcard = "\\N";
+
 		company = "\\N";
 		title = "\\N";
 		city = "\\N";
 		birth_place = "\\N";
 		phone = "\\N";
+
 		mobile = "\\N";
 		email = "\\N";
 		age = "\\N";
 		birthday = "\\N";
 		marriage = "\\N";
+
 		major = "\\N";
 		degree = "\\N";
 		school = "\\N";
@@ -419,51 +424,65 @@ public class Main3 {
 		job_time = "\\N";
 
 		try {
+			// 24行
+			String line = (candidateid++) + "\t" + "\\N" + "\t" + "1" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N"
+					+ "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t"
+					+ "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N"
+					+ "\t" + "\\N" + "\t" + "\\N" + "\t" + "\\N" + "\t" + "1" + "\t" + "\\N" + "\t";
 
-			ResultSet rsKey;
-			try {
-				if (connCounter % 10000 == 9999) {
-					connect.close();
-					connect = getConnect();
-				}
-				statement = connect.prepareStatement(
-						"INSERT INTO cv  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-						PreparedStatement.RETURN_GENERATED_KEYS);
-				statement.setString(1, null);
-				statement.setString(2, null);
-				statement.setInt(3, 1);
-				statement.setString(4, null);
-				statement.setString(5, null);
-				statement.setString(6, null);
-				statement.setString(7, null);
-				statement.setString(8, null);
-				statement.setString(9, null);
-				statement.setString(10, null);
-				statement.setString(11, null);
-				statement.setString(12, null);
-				statement.setString(13, null);
-				statement.setString(14, null);
-				statement.setString(15, null);
-				statement.setString(16, null);
-				statement.setString(17, null);
-				statement.setString(18, null);
-				statement.setString(19, null);
-				statement.setString(20, null);
-				statement.setString(21, null);
-				statement.setString(22, null);
-				statement.setInt(23, 1);
-				statement.setString(24, null);
-				statement.executeUpdate();
-				rsKey = statement.getGeneratedKeys();
-				rsKey.next();
-				candidateid = rsKey.getInt(1);
+			cv_txt_fw.write(line + "\r\n");
+			cv_txt_fw.flush();
 
-				connCounter++;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// 得到初始化cv表id
+	public static void cv_begin() {
+
+		ResultSet rsKey;
+		try {
+
+			connect = getConnect();
+
+			statement = connect.prepareStatement(
+					"INSERT INTO cv  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			statement.setString(1, null);
+			statement.setString(2, null);
+			statement.setInt(3, 1);
+			statement.setString(4, null);
+			statement.setString(5, null);
+			statement.setString(6, null);
+			statement.setString(7, null);
+			statement.setString(8, null);
+			statement.setString(9, null);
+			statement.setString(10, null);
+			statement.setString(11, null);
+			statement.setString(12, null);
+			statement.setString(13, null);
+			statement.setString(14, null);
+			statement.setString(15, null);
+			statement.setString(16, null);
+			statement.setString(17, null);
+			statement.setString(18, null);
+			statement.setString(19, null);
+			statement.setString(20, null);
+			statement.setString(21, null);
+			statement.setString(22, null);
+			statement.setInt(23, 0);
+			statement.setString(24, null);
+			statement.executeUpdate();
+			rsKey = statement.getGeneratedKeys();
+			rsKey.next();
+			candidateid = rsKey.getInt(1) + 100;
+
+			// connCounter++;
+			connect.close();
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -627,7 +646,7 @@ public class Main3 {
 				case 8:
 					brModel8Parse parse8 = new brModel8Parse();
 					skillMap = parse8.skillMap;
-					break;
+					break; 
 				}
 				if (skillMap != null) {
 					for (Skill skill : skillMap.values()) {
@@ -1569,9 +1588,10 @@ public class Main3 {
 			} else {
 
 				str = replaceTab(str);
-				//str = str.replaceAll("[\\\\?？]", "");
+				// str = str.replaceAll("[\\\\?？]", "");
 				// str = str.replace("😊", "").replace("𡿨", "");
-				str = new String(str.getBytes("gbk"), "gb2312").toString().replace("\\", ",").replace("?", "").replace("？", "");
+				str = new String(str.getBytes("gbk"), "gb2312").toString().replace("\\", ",").replace("?", "")
+						.replace("？", "");
 				str = str.trim().equals("") ? "\\N" : str;
 			}
 		} catch (Exception e) {
@@ -1642,6 +1662,7 @@ public class Main3 {
 
 						if (connCounter % 10000 == 9999) {// 9999
 
+							cv_txt_fw.close();
 							cv_job_txt_fw.close();
 							cv_skill_txt_fw.close();
 							cv_project_txt_fw.close();
@@ -1653,6 +1674,7 @@ public class Main3 {
 							cv_basic_txt_fw.close();
 							UnReadFiles_txt_fw.close();
 
+							cv_txt_fw = new FileWriter(cv, true);// 可追加读写入
 							cv_job_txt_fw = new FileWriter(cv_job, true);// 可追加读写入
 							cv_skill_txt_fw = new FileWriter(cv_skill, true);// 可追加读写入
 							cv_project_txt_fw = new FileWriter(cv_project, true);// 可追加读写入
@@ -1763,7 +1785,9 @@ public class Main3 {
 
 	public static void main(String[] args) {// ArrayIndexOutOfBoundsException
 		try {
+			cv_begin();
 
+			cv_txt_fw = new FileWriter(cv, true);// 可追加读写入
 			cv_job_txt_fw = new FileWriter(cv_job, true);// 可追加读写入
 			cv_skill_txt_fw = new FileWriter(cv_skill, true);// 可追加读写入
 			cv_project_txt_fw = new FileWriter(cv_project, true);// 可追加读写入
@@ -1776,7 +1800,6 @@ public class Main3 {
 
 			long a = System.currentTimeMillis();
 
-			connect = getConnect();
 			readfile("L:/简历分类");
 
 			System.out.println("耗时： " + (System.currentTimeMillis() - a) / 1000f + " s");
@@ -1800,6 +1823,16 @@ public class Main3 {
 
 /**
  * 250万HTML 耗时： 36517.996 s 解析文件成功数： 2120677 解析文件失败数： 381
+ */
+
+/**
+ * 
+ * 1000万html简历
+ * 
+ * 耗时： 43525.61 s 文件总数： 9600457 解析文件成功数： 9217674 解析文件失败数： 206441
+ * 
+ * 
+ * 
  */
 
 // cv_job_txt = new File(cv_job);
